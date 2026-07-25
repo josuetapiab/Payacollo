@@ -589,8 +589,13 @@ ul {
   background: linear-gradient(135deg, var(--color-primary-pale), oklch(0.95 0.02 295));
   border-radius: var(--radius-lg);
   padding: 44px 28px;
-  border: none; /* quitar el borde inferior de .section */
+  border: none;
   margin-bottom: 0;
+  text-align: center;
+}
+
+.section--highlight .section__text {
+  margin: 0 auto; /* centra el párrafo cuando tiene max-width */
 }
 
 /* Variante centrada (Ubicación) */
