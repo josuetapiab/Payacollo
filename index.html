@@ -26,6 +26,29 @@
 <body>
 
   <!-- ============================================================
+       BARRA DE NAVEGACIÓN FIJA
+       ============================================================ -->
+  <nav class="navbar" id="navbar" aria-label="Navegación principal">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__brand">
+        <img src="images/logo.jpg" alt="MMB" class="navbar__logo-img">
+        <span class="navbar__brand-text">MMB Payacollo</span>
+      </a>
+      <button class="navbar__burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="navbar__menu" id="navMenu" role="list">
+        <li><a href="#tema"       class="navbar__link">Inicio</a></li>
+        <li><a href="#programa"   class="navbar__link">Programa</a></li>
+        <li><a href="#requisitos" class="navbar__link">Inscripción</a></li>
+        <li><a href="#ubicacion"  class="navbar__link">Ubicación</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
        HERO — Sección principal con gradiente morado
        ============================================================ -->
   <header class="hero">
@@ -83,6 +106,26 @@
         </span>
       </div>
 
+      <!-- Contador regresivo hasta el evento -->
+      <div class="countdown" id="countdown">
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-dias">--</span>
+          <span class="countdown__label">Días</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-horas">--</span>
+          <span class="countdown__label">Horas</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-min">--</span>
+          <span class="countdown__label">Minutos</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-seg">--</span>
+          <span class="countdown__label">Segundos</span>
+        </div>
+      </div>
+
       <!-- Botones de acción -->
       <div class="hero__actions">
 
@@ -138,6 +181,39 @@
                   <span class="dropdown__name">Pastora Geidy Tapia</span>
                 </span>
               </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Dropdown: agregar al calendario -->
+        <div class="dropdown dropdown--cal">
+          <button
+            class="btn btn--white"
+            id="calToggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+            Añadir al calendario
+            <svg class="icon icon--chevron cal-arrow" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+          </button>
+          <ul class="dropdown__menu dropdown__menu--cal" id="calMenu" role="menu" hidden>
+            <li role="none">
+              <a href="#" id="calGoogle" target="_blank" rel="noopener" class="dropdown__item" role="menuitem">
+                <span class="dropdown__icon cal-icon-google" aria-hidden="true">G</span>
+                <span class="dropdown__info">
+                  <span class="dropdown__name">Google Calendar</span>
+                </span>
+              </a>
+            </li>
+            <li role="none">
+              <button id="calIcs" class="dropdown__item dropdown__item--btn" role="menuitem">
+                <span class="dropdown__icon cal-icon-apple" aria-hidden="true">📱</span>
+                <span class="dropdown__info">
+                  <span class="dropdown__name">Apple / Outlook</span>
+                  <span class="dropdown__number">Descarga .ics</span>
+                </span>
+              </button>
             </li>
           </ul>
         </div>
