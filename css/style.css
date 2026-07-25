@@ -588,6 +588,13 @@ ul {
   color: white;
 }
 
+.church__title {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 4vw, 28px);
+  color: white;
+  margin-bottom: 14px;
+}
+
 .church .section__text {
   color: rgba(255,255,255,0.9);
   margin: 0 auto;
