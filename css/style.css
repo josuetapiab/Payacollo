@@ -572,7 +572,7 @@ ul {
 
 /* Sección genérica */
 .section {
-  padding: 64px 0;
+  padding: 40px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -811,7 +811,7 @@ ul {
 
   /* Secciones con más padding en escritorio */
   .section {
-    padding: 80px 0;
+    padding: 52px 0;
   }
 
   /* Filas del horario con más padding */
