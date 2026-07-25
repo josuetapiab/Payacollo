@@ -1,0 +1,598 @@
+/* ================================================
+   style.css — Congreso Internacional para Mujeres
+   Ministerio Misión Boliviana — Payacollo
+   ================================================ */
+
+
+/* ================================================
+   VARIABLES GLOBALES
+   Cambia los colores aquí para actualizar toda la página.
+   ================================================ */
+:root {
+  /* Colores morados del hero */
+  --color-primary:       oklch(0.42 0.14 295); /* morado principal */
+  --color-primary-dark:  oklch(0.32 0.11 300); /* morado oscuro (inicio del gradiente) */
+  --color-primary-light: oklch(0.55 0.15 290); /* morado claro (fin del gradiente) */
+  --color-primary-pale:  oklch(0.97 0.015 300);/* fondo muy claro para filas alternas */
+
+  /* Colores de texto */
+  --color-text:          oklch(0.28 0.05 300); /* texto principal */
+  --color-text-muted:    oklch(0.40 0.02 300); /* texto secundario */
+  --color-text-light:    oklch(0.50 0.02 300); /* texto terciario */
+  --color-label:         oklch(0.50 0.14 295); /* etiquetas de sección */
+
+  /* Otros colores */
+  --color-green:         oklch(0.60 0.16 145); /* verde WhatsApp */
+  --color-bg:            oklch(0.98 0.005 300);/* fondo general de la página */
+  --color-footer-bg:     oklch(0.24 0.06 300); /* fondo del footer */
+  --color-white:         #ffffff;
+
+  /* Tipografías */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Poppins', system-ui, sans-serif;
+
+  /* Bordes redondeados */
+  --radius-sm:   12px;
+  --radius-md:   18px;
+  --radius-lg:   24px;
+  --radius-pill: 40px;
+
+  /* Sombras */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  /* Transición estándar */
+  --transition: 0.2s ease;
+
+  /* Ancho máximo del contenido */
+  --max-width: 760px;
+}
+
+
+/* ================================================
+   RESET BÁSICO
+   ================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Scroll suave al hacer clic en enlaces de anclaje */
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: 1.6;
+  /* Mejora la renderización de fuentes en pantallas de alta densidad */
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ================================================
+   BOTONES
+   ================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 30px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition), opacity var(--transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Efecto hover: sube un poco */
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+/* Efecto al presionar */
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Botón blanco (sobre el gradiente del hero) */
+.btn--white {
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Botón verde (WhatsApp) */
+.btn--green {
+  background: var(--color-green);
+  color: var(--color-white);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Botón morado (sección de ubicación) */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón contorno transparente (footer) */
+.btn--outline {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Variante pequeña para el footer */
+.btn--sm {
+  padding: 13px 24px;
+  font-size: 14px;
+}
+
+
+/* ================================================
+   HERO — Sección principal
+   ================================================ */
+.hero {
+  position: relative;
+  overflow: hidden; /* para que las decoraciones no desborden */
+  background: linear-gradient(
+    160deg,
+    var(--color-primary-dark)  0%,
+    var(--color-primary)       45%,
+    var(--color-primary-light) 100%
+  );
+  padding: 72px 24px 96px;
+  text-align: center;
+  color: var(--color-white);
+}
+
+/* Decoraciones SVG de fondo */
+.hero__deco {
+  position: absolute;
+  pointer-events: none; /* no bloquean clics */
+  opacity: 0.35;
+}
+
+.hero__deco--top {
+  top: -40px;
+  right: -60px;
+  width: 280px;
+}
+
+.hero__deco--bottom {
+  bottom: -50px;
+  left: -40px;
+  width: 220px;
+  opacity: 0.3;
+}
+
+/* Contenedor centrado del contenido del hero */
+.hero__content {
+  position: relative; /* para estar por encima de las decoraciones */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Logo circular */
+.hero__logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
+
+/* Etiqueta "MMB — Payacollo" */
+.hero__badge {
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+/* Título H1 principal */
+.hero__title {
+  font-family: var(--font-heading);
+  /* clamp: mínimo 32px, preferido 6vw, máximo 52px */
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+/* Subtítulo en cursiva */
+.hero__subtitle {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 22px;
+  opacity: 0.95;
+}
+
+/* Chips de información (fecha / hora / lugar) */
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap; /* se acomodan en varias líneas en móvil */
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Contenedor de los botones del hero */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+
+/* ================================================
+   DROPDOWN — Menú de WhatsApp
+   ================================================ */
+
+/* Contenedor relativo para posicionar el menú */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Flecha que gira cuando el menú está abierto */
+.dropdown__arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+
+/* Clase que agrega main.js cuando el menú está abierto */
+.dropdown--open .dropdown__arrow {
+  transform: rotate(180deg);
+}
+
+/* Menú desplegable */
+.dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  min-width: 240px;
+  z-index: 100;
+  /* Animación de aparición */
+  animation: dropdownEntrada 0.15s ease;
+}
+
+/* Cada opción del menú */
+.dropdown__item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition: background var(--transition);
+}
+
+.dropdown__item:hover {
+  background: var(--color-primary-pale);
+}
+
+/* Nombre de la persona */
+.dropdown__name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Número de teléfono */
+.dropdown__number {
+  color: var(--color-label);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* Animación de entrada del dropdown */
+@keyframes dropdownEntrada {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+/* ================================================
+   CONTENIDO PRINCIPAL (secciones)
+   ================================================ */
+
+/* Contenedor que centra y limita el ancho del contenido */
+.main-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Sección genérica */
+.section {
+  padding: 64px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* La última sección no necesita borde inferior */
+.section:last-child {
+  border-bottom: none;
+}
+
+/* Etiqueta pequeña sobre el título (ej. "El Tema") */
+.section__label {
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-label);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Título de cada sección */
+.section__title {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 4vw, 34px);
+  color: var(--color-text);
+  margin-bottom: 18px;
+}
+
+/* Párrafo de texto de cada sección */
+.section__text {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  max-width: 560px;
+}
+
+/* Nombre del pastor (en cursiva) */
+.section__pastor {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-primary);
+  margin-top: 20px;
+}
+
+/* Variante con fondo de color (Sobre el ministerio) */
+.section--highlight {
+  background: linear-gradient(135deg, var(--color-primary-pale), oklch(0.95 0.02 295));
+  border-radius: var(--radius-lg);
+  padding: 44px 28px;
+  border: none; /* quitar el borde inferior de .section */
+  margin-bottom: 0;
+}
+
+/* Variante centrada (Ubicación) */
+.section--center {
+  text-align: center;
+}
+
+/* En secciones centradas, alinear también los elementos de texto */
+.section--center .section__label,
+.section--center .section__title {
+  text-align: center;
+}
+
+
+/* ================================================
+   HORARIO DEL CONGRESO
+   ================================================ */
+.schedule {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Fila del horario */
+.schedule__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 26px;
+  background: var(--color-white);
+}
+
+/* Fila alternada con fondo gris muy claro */
+.schedule__item--alt {
+  background: var(--color-primary-pale);
+}
+
+/* Hora en morado */
+.schedule__time {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 16px;
+  min-width: 90px; /* para que todas las horas queden alineadas */
+  flex-shrink: 0;
+}
+
+/* Descripción de la actividad */
+.schedule__desc {
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+
+/* ================================================
+   TARJETAS (Requisitos e Inscripción)
+   ================================================ */
+
+/* CSS Grid: columnas automáticas de mínimo 200px */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Tarjeta individual */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Emoji grande */
+.card__icon {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+/* Título de la tarjeta */
+.card__title {
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+/* Texto de la tarjeta */
+.card__text {
+  font-size: 14px;
+  color: var(--color-text-light);
+  line-height: 1.5;
+}
+
+
+/* ================================================
+   FOOTER
+   ================================================ */
+.footer {
+  background: var(--color-footer-bg);
+  color: var(--color-white);
+  padding: 56px 24px 40px;
+  text-align: center;
+}
+
+/* Versículo bíblico en cursiva */
+.footer__verse {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 19px;
+  opacity: 0.95;
+  max-width: 600px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* Fila de botones de contacto */
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+/* Línea de créditos */
+.footer__credit {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+
+/* ================================================
+   ANIMACIÓN FADE-IN (controlada por main.js)
+   ================================================ */
+
+/* Estado inicial: invisible y desplazado hacia abajo */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Estado final: visible en su posición normal */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ================================================
+   RESPONSIVE — Tablet (≥ 600px)
+   ================================================ */
+@media (min-width: 600px) {
+  .chip {
+    font-size: 15px;
+  }
+
+  /* En tablet, las 3 tarjetas siempre en la misma fila */
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ================================================
+   RESPONSIVE — Desktop (≥ 900px)
+   ================================================ */
+@media (min-width: 900px) {
+  /* Hero con más espacio vertical en escritorio */
+  .hero {
+    padding: 96px 24px 120px;
+  }
+
+  /* Logo un poco más grande en escritorio */
+  .hero__logo {
+    width: 140px;
+    height: 140px;
+  }
+
+  /* Secciones con más padding en escritorio */
+  .section {
+    padding: 80px 0;
+  }
+
+  /* Filas del horario con más padding */
+  .schedule__item {
+    padding: 22px 32px;
+  }
+}
