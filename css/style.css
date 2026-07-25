@@ -551,16 +551,14 @@ ul {
   display: block;
 }
 
-/* OPCIÓN 1: imagen como fondo de "Sobre el ministerio" */
-.section--church {
+/* Contenedor de imagen de la iglesia (dentro de la sección, bajo el título) */
+.church {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  border: none;
-  padding: 0;
-  margin-bottom: 0;
+  margin-top: 24px;
   text-align: center;
-  min-height: 320px;
+  min-height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -590,20 +588,12 @@ ul {
   color: white;
 }
 
-.section--church .section__label {
-  color: rgba(255,255,255,0.8);
-}
-
-.section--church .section__title {
-  color: white;
-}
-
-.section--church .section__text {
+.church .section__text {
   color: rgba(255,255,255,0.9);
   margin: 0 auto;
 }
 
-.section--church .section__pastor {
+.church .section__pastor {
   color: rgba(255,255,255,0.85);
 }
 
