@@ -70,11 +70,13 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px;
-  /* Evita barra de scroll horizontal causada por decoraciones SVG fuera del borde */
-  overflow-x: hidden;
 }
 
 body {
@@ -297,8 +299,8 @@ ul {
 
 .hero__deco--top {
   top: -40px;
-  right: -60px;
-  width: 280px;
+  right: -20px;
+  width: 240px;
 }
 
 .hero__deco--bottom {
