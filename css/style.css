@@ -453,10 +453,11 @@ ul {
 
 /* La flecha SVG rota via .dropdown--open .icon--chevron (ver sección de íconos) */
 
-/* Menú desplegable */
+/* Menú desplegable — se abre hacia ARRIBA para no tapar el contenido */
 .dropdown__menu {
   position: absolute;
-  top: calc(100% + 8px);
+  bottom: calc(100% + 8px);
+  top: auto;
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-white);
@@ -465,7 +466,6 @@ ul {
   padding: 8px;
   min-width: 240px;
   z-index: 500;
-  /* Animación de aparición */
   animation: dropdownEntrada 0.15s ease;
 }
 
@@ -519,11 +519,11 @@ ul {
   margin-top: 1px;
 }
 
-/* Animación de entrada del dropdown */
+/* Animación de entrada del dropdown (sube desde abajo) */
 @keyframes dropdownEntrada {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-6px);
+    transform: translateX(-50%) translateY(6px);
   }
   to {
     opacity: 1;
