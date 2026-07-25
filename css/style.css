@@ -367,6 +367,10 @@ ul {
   border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 500;
+  /* alinea el ícono SVG con el texto */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* Contenedor de los botones del hero */
@@ -376,6 +380,44 @@ ul {
   gap: 14px;
   justify-content: center;
   margin-top: 8px;
+}
+
+
+/* ================================================
+   ICONOS SVG INLINE
+   ================================================ */
+
+/* Base: hereda el color del texto del elemento padre */
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Tamaño grande (tarjetas, etc.) */
+.icon--lg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Flecha del dropdown */
+.icon--chevron {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  transition: transform var(--transition);
+}
+
+/* Rotar la flecha cuando el menú está abierto */
+.dropdown--open .icon--chevron {
+  transform: rotate(180deg);
 }
 
 
@@ -395,10 +437,7 @@ ul {
   transition: transform var(--transition);
 }
 
-/* Clase que agrega main.js cuando el menú está abierto */
-.dropdown--open .dropdown__arrow {
-  transform: rotate(180deg);
-}
+/* La flecha SVG rota via .dropdown--open .icon--chevron (ver sección de íconos) */
 
 /* Menú desplegable */
 .dropdown__menu {
@@ -441,8 +480,9 @@ ul {
   height: 38px;
   border-radius: 50%;
   background: var(--color-green);
-  font-size: 18px;
   flex-shrink: 0;
+  /* el SVG interior hereda color blanco */
+  color: white;
 }
 
 /* Bloque de texto (nombre + número) */
