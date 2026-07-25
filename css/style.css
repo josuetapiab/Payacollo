@@ -21,6 +21,17 @@
   --color-text-light:    oklch(0.50 0.02 300); /* texto terciario */
   --color-label:         oklch(0.50 0.14 295); /* etiquetas de sección */
 
+  /* ---- Paleta semántica de botones (estilo propio, sin librerías) ---- */
+  --btn-primary:   oklch(0.42 0.14 295); /* morado  — igual al color principal */
+  --btn-secondary: oklch(0.55 0.04 270); /* gris azulado neutro */
+  --btn-success:   oklch(0.60 0.16 145); /* verde   — mismo que WhatsApp */
+  --btn-danger:    oklch(0.55 0.20  25); /* rojo */
+  --btn-warning:   oklch(0.75 0.17  75); /* amarillo-naranja */
+  --btn-info:      oklch(0.60 0.15 230); /* azul claro */
+
+  /* Cuánto se oscurece el botón al pasar el cursor (valor entre 0 y 1) */
+  --btn-hover-brightness: 0.85;
+
   /* Otros colores */
   --color-green:         oklch(0.60 0.16 145); /* verde WhatsApp */
   --color-bg:            oklch(0.98 0.005 300);/* fondo general de la página */
@@ -89,67 +100,168 @@ ul {
 
 
 /* ================================================
-   BOTONES
+   SISTEMA DE BOTONES GENÉRICO
+   ------------------------------------------------
+   Uso: <button class="btn btn--primary">Texto</button>
+   Variantes sólidas:  btn--primary / secondary / success / danger / warning / info
+   Variantes contorno: btn--outline-primary / secondary / success / danger / warning / info
+   Tamaños:            btn--sm / btn--lg
+   Especiales:         btn--white / btn--outline (footer)
    ================================================ */
+
+/* --- Base de todos los botones --- */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 16px 30px;
+  padding: 14px 28px;
   border-radius: var(--radius-pill);
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  border: none;
-  transition: transform var(--transition), opacity var(--transition);
+  border: 2px solid transparent;
+  transition:
+    filter       var(--transition),
+    transform    var(--transition),
+    box-shadow   var(--transition);
   white-space: nowrap;
   line-height: 1;
+  text-decoration: none;
 }
 
-/* Efecto hover: sube un poco */
+/* Hover: oscurece el fondo con filter (funciona en CUALQUIER color) */
 .btn:hover {
+  filter: brightness(var(--btn-hover-brightness));
   transform: translateY(-2px);
-  opacity: 0.92;
 }
 
-/* Efecto al presionar */
+/* Al presionar: baja de nuevo */
 .btn:active {
   transform: translateY(0);
+  filter: brightness(0.78);
 }
 
-/* Botón blanco (sobre el gradiente del hero) */
+/* Foco visible para accesibilidad con teclado */
+.btn:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ---- Variantes sólidas ---- */
+/* Cada una define --_bg (color de fondo) y hereda el resto */
+
+.btn--primary {
+  background: var(--btn-primary);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px oklch(from var(--btn-primary) l c h / 0.35);
+}
+
+.btn--secondary {
+  background: var(--btn-secondary);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px oklch(from var(--btn-secondary) l c h / 0.30);
+}
+
+.btn--success {
+  background: var(--btn-success);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px oklch(from var(--btn-success) l c h / 0.35);
+}
+
+.btn--danger {
+  background: var(--btn-danger);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px oklch(from var(--btn-danger) l c h / 0.30);
+}
+
+.btn--warning {
+  background: var(--btn-warning);
+  color: oklch(0.20 0.05 75); /* texto oscuro sobre amarillo */
+  box-shadow: 0 6px 20px oklch(from var(--btn-warning) l c h / 0.30);
+}
+
+.btn--info {
+  background: var(--btn-info);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px oklch(from var(--btn-info) l c h / 0.30);
+}
+
+/* ---- Variantes de contorno (outline) ---- */
+/* Fondo transparente, borde y texto del color semántico */
+
+.btn--outline-primary {
+  background: transparent;
+  color: var(--btn-primary);
+  border-color: var(--btn-primary);
+}
+
+.btn--outline-secondary {
+  background: transparent;
+  color: var(--btn-secondary);
+  border-color: var(--btn-secondary);
+}
+
+.btn--outline-success {
+  background: transparent;
+  color: var(--btn-success);
+  border-color: var(--btn-success);
+}
+
+.btn--outline-danger {
+  background: transparent;
+  color: var(--btn-danger);
+  border-color: var(--btn-danger);
+}
+
+.btn--outline-warning {
+  background: transparent;
+  color: oklch(0.55 0.17 75);
+  border-color: var(--btn-warning);
+}
+
+.btn--outline-info {
+  background: transparent;
+  color: var(--btn-info);
+  border-color: var(--btn-info);
+}
+
+/* ---- Tamaños ---- */
+
+/* Pequeño (footer, chips de acción) */
+.btn--sm {
+  padding: 10px 20px;
+  font-size: 13px;
+}
+
+/* Grande (llamadas a la acción principales) */
+.btn--lg {
+  padding: 18px 36px;
+  font-size: 17px;
+}
+
+/* ---- Especiales (usados en este proyecto) ---- */
+
+/* Blanco sobre el gradiente del hero */
 .btn--white {
   background: var(--color-white);
-  color: var(--color-primary);
+  color: var(--btn-primary);
   box-shadow: var(--shadow-lg);
+  border-color: transparent;
 }
 
-/* Botón verde (WhatsApp) */
+/* Verde alias para WhatsApp (mismo que success) */
 .btn--green {
-  background: var(--color-green);
+  background: var(--btn-success);
   color: var(--color-white);
   box-shadow: var(--shadow-lg);
 }
 
-/* Botón morado (sección de ubicación) */
-.btn--primary {
-  background: var(--color-primary);
-  color: var(--color-white);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
-}
-
-/* Botón contorno transparente (footer) */
+/* Contorno semitransparente para el footer oscuro */
 .btn--outline {
   background: rgba(255, 255, 255, 0.12);
   color: var(--color-white);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Variante pequeña para el footer */
-.btn--sm {
-  padding: 13px 24px;
-  font-size: 14px;
+  border-color: rgba(255, 255, 255, 0.30);
 }
 
 
