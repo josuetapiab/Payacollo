@@ -387,6 +387,15 @@ ul {
    ICONOS SVG INLINE
    ================================================ */
 
+/* Íconos PNG dentro de botones (WhatsApp, Facebook) */
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
 /* Base: hereda el color del texto del elemento padre */
 .icon {
   width: 18px;
