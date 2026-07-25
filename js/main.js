@@ -22,38 +22,84 @@ elementosAnimados.forEach(function (el) { observador.observe(el); });
 
 
 /* ================================================
-   2. DROPDOWN DE WHATSAPP
+   2. DROPDOWNS — WhatsApp y Calendario
+   Variables en scope global para que se puedan
+   referenciar mutuamente al abrir/cerrar.
    ================================================ */
 var waBoton      = document.querySelector('.dropdown__toggle');
 var waMenu       = document.querySelector('.dropdown__menu');
 var waContenedor = document.querySelector('.dropdown');
+var calToggle    = document.getElementById('calToggle');
+var calMenu      = document.getElementById('calMenu');
 
-if (waBoton && waMenu && waContenedor) {
-  function abrirWa()  {
-    waMenu.removeAttribute('hidden');
-    waBoton.setAttribute('aria-expanded', 'true');
-    waContenedor.classList.add('dropdown--open');
-  }
-  function cerrarWa() {
-    waMenu.setAttribute('hidden', '');
-    waBoton.setAttribute('aria-expanded', 'false');
-    waContenedor.classList.remove('dropdown--open');
-  }
+/* --- Funciones de cierre individuales --- */
+function cerrarWa() {
+  if (!waMenu) return;
+  waMenu.setAttribute('hidden', '');
+  if (waBoton)      waBoton.setAttribute('aria-expanded', 'false');
+  if (waContenedor) waContenedor.classList.remove('dropdown--open');
+}
 
+function cerrarCal() {
+  if (!calMenu) return;
+  calMenu.setAttribute('hidden', '');
+  if (calToggle) calToggle.setAttribute('aria-expanded', 'false');
+}
+
+/* Cierra TODOS los dropdowns de una vez */
+function cerrarTodos() {
+  cerrarWa();
+  cerrarCal();
+}
+
+/* --- WhatsApp --- */
+if (waBoton && waMenu) {
   waBoton.addEventListener('click', function (e) {
     e.stopPropagation();
-    waMenu.hasAttribute('hidden') ? abrirWa() : cerrarWa();
-  });
-  document.addEventListener('click', function () {
-    if (!waMenu.hasAttribute('hidden')) cerrarWa();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !waMenu.hasAttribute('hidden')) {
+    if (waMenu.hasAttribute('hidden')) {
+      cerrarCal();                              /* cierra calendario si está abierto */
+      waMenu.removeAttribute('hidden');
+      waBoton.setAttribute('aria-expanded', 'true');
+      waContenedor.classList.add('dropdown--open');
+    } else {
       cerrarWa();
-      waBoton.focus();
     }
   });
 }
+
+/* --- Calendario --- */
+if (calToggle && calMenu) {
+  calToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (calMenu.hasAttribute('hidden')) {
+      cerrarWa();                               /* cierra WhatsApp si está abierto */
+      calMenu.removeAttribute('hidden');
+      calToggle.setAttribute('aria-expanded', 'true');
+    } else {
+      cerrarCal();
+    }
+  });
+}
+
+/* --- Cerrar al tocar/clicar FUERA (click = desktop, touchstart = móvil) --- */
+function manejarCierreExterno(e) {
+  var dentroWa  = waBoton      && waBoton.contains(e.target)  ||
+                  waMenu       && waMenu.contains(e.target);
+  var dentroCal = calToggle    && calToggle.contains(e.target) ||
+                  calMenu      && calMenu.contains(e.target);
+  if (!dentroWa && !dentroCal) cerrarTodos();
+}
+
+document.addEventListener('click',      manejarCierreExterno);
+document.addEventListener('touchstart', manejarCierreExterno, { passive: true });
+
+/* --- Cerrar con Escape --- */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    cerrarTodos();
+    if (waBoton) waBoton.focus();
+  }
+});
 
 
 /* ================================================
@@ -78,7 +124,7 @@ if (burger && navMenu) {
     burger.classList.toggle('navbar__burger--open', abierto);
   });
 
-  /* Cerrar el menú al hacer clic en cualquier enlace */
+  /* Cerrar al hacer clic en un enlace */
   navMenu.querySelectorAll('.navbar__link').forEach(function (link) {
     link.addEventListener('click', function () {
       navMenu.classList.remove('navbar__menu--open');
@@ -87,7 +133,7 @@ if (burger && navMenu) {
     });
   });
 
-  /* Cerrar el menú al hacer clic en cualquier parte fuera de la navbar */
+  /* Cerrar al hacer clic/toque fuera de la navbar */
   document.addEventListener('click', function (e) {
     if (navMenu.classList.contains('navbar__menu--open') && !navbar.contains(e.target)) {
       navMenu.classList.remove('navbar__menu--open');
@@ -95,8 +141,15 @@ if (burger && navMenu) {
       burger.setAttribute('aria-expanded', 'false');
     }
   });
+  document.addEventListener('touchstart', function (e) {
+    if (navMenu.classList.contains('navbar__menu--open') && !navbar.contains(e.target)) {
+      navMenu.classList.remove('navbar__menu--open');
+      burger.classList.remove('navbar__burger--open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  }, { passive: true });
 
-  /* Cerrar el menú con la tecla Escape */
+  /* Cerrar con Escape */
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && navMenu.classList.contains('navbar__menu--open')) {
       navMenu.classList.remove('navbar__menu--open');
@@ -126,7 +179,6 @@ function actualizarContador() {
   var diff = FECHA_EVENTO - new Date();
 
   if (diff <= 0) {
-    /* El evento ya comenzó */
     if (elDias)  elDias.textContent  = '00';
     if (elHoras) elHoras.textContent = '00';
     if (elMin)   elMin.textContent   = '00';
@@ -147,31 +199,8 @@ if (elDias) {
 
 
 /* ================================================
-   5. BOTÓN AGREGAR AL CALENDARIO
+   5. ENLACE GOOGLE CALENDAR Y DESCARGA .ICS
    ================================================ */
-var calToggle = document.getElementById('calToggle');
-var calMenu   = document.getElementById('calMenu');
-
-/* Toggle del dropdown de calendario */
-if (calToggle && calMenu) {
-  calToggle.addEventListener('click', function (e) {
-    e.stopPropagation();
-    var abierto = calMenu.hasAttribute('hidden');
-    if (abierto) {
-      calMenu.removeAttribute('hidden');
-      calToggle.setAttribute('aria-expanded', 'true');
-    } else {
-      calMenu.setAttribute('hidden', '');
-      calToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-  document.addEventListener('click', function () {
-    if (calMenu && !calMenu.hasAttribute('hidden')) {
-      calMenu.setAttribute('hidden', '');
-      calToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-}
 
 /* Enlace de Google Calendar */
 var btnGoogle = document.getElementById('calGoogle');
@@ -219,11 +248,9 @@ if (btnIcs) {
 
 /* ================================================
    6. ANIMACIÓN DE ENTRADA DEL HERO
-   Se activa cuando la página termina de cargar.
    ================================================ */
 function activarHero() {
   document.body.classList.add('hero-loaded');
 }
 window.addEventListener('load', activarHero);
-/* Fallback: si "load" tarda más de 1 s, anima igual */
 setTimeout(activarHero, 1000);

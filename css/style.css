@@ -464,7 +464,7 @@ ul {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   padding: 8px;
   min-width: 240px;
-  z-index: 100;
+  z-index: 500;
   /* Animación de aparición */
   animation: dropdownEntrada 0.15s ease;
 }
