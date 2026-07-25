@@ -72,8 +72,9 @@
 
 html {
   scroll-behavior: smooth;
-  /* Offset para que los anclas no queden ocultos bajo la navbar fija */
   scroll-padding-top: 72px;
+  /* Evita barra de scroll horizontal causada por decoraciones SVG fuera del borde */
+  overflow-x: hidden;
 }
 
 body {
