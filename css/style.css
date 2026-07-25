@@ -655,6 +655,7 @@ ul {
   color: var(--color-label);
   text-transform: uppercase;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 /* Título de cada sección */
@@ -663,6 +664,7 @@ ul {
   font-size: clamp(24px, 4vw, 34px);
   color: var(--color-text);
   margin-bottom: 18px;
+  text-align: center;
 }
 
 /* Párrafo de texto de cada sección */
