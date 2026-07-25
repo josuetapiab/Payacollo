@@ -24,7 +24,7 @@
   /* ---- Paleta semántica de botones (estilo propio, sin librerías) ---- */
   --btn-primary:   oklch(0.42 0.14 295); /* morado  — igual al color principal */
   --btn-secondary: oklch(0.55 0.04 270); /* gris azulado neutro */
-  --btn-success:   oklch(0.74 0.18 145); /* verde WhatsApp oficial #25D366 */
+  --btn-success:   #2BAF1B; /* verde WhatsApp del ícono */
   --btn-danger:    oklch(0.55 0.20  25); /* rojo */
   --btn-warning:   oklch(0.75 0.17  75); /* amarillo-naranja */
   --btn-info:      oklch(0.60 0.15 230); /* azul claro */
@@ -33,7 +33,7 @@
   --btn-hover-brightness: 0.85;
 
   /* Otros colores */
-  --color-green:         oklch(0.74 0.18 145); /* verde WhatsApp oficial #25D366 */
+  --color-green:         #2BAF1B; /* verde WhatsApp del ícono */
   --color-bg:            oklch(0.98 0.005 300);/* fondo general de la página */
   --color-footer-bg:     oklch(0.24 0.06 300); /* fondo del footer */
   --color-white:         #ffffff;
