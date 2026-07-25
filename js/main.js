@@ -86,6 +86,25 @@ if (burger && navMenu) {
       burger.setAttribute('aria-expanded', 'false');
     });
   });
+
+  /* Cerrar el menú al hacer clic en cualquier parte fuera de la navbar */
+  document.addEventListener('click', function (e) {
+    if (navMenu.classList.contains('navbar__menu--open') && !navbar.contains(e.target)) {
+      navMenu.classList.remove('navbar__menu--open');
+      burger.classList.remove('navbar__burger--open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* Cerrar el menú con la tecla Escape */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && navMenu.classList.contains('navbar__menu--open')) {
+      navMenu.classList.remove('navbar__menu--open');
+      burger.classList.remove('navbar__burger--open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.focus();
+    }
+  });
 }
 
 
