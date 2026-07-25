@@ -282,7 +282,7 @@ ul {
     var(--color-primary-light) 100%
   );
   /* 52px navbar (móvil) + 72px padding propio */
-  padding: 124px 24px 0;
+  padding: 124px 24px 48px;
   text-align: center;
   color: var(--color-white);
 }
@@ -609,21 +609,6 @@ ul {
 
 
 /* ================================================
-   ONDA HERO → CONTENIDO
-   ================================================ */
-.hero__wave {
-  position: relative;
-  margin-top: 24px;
-  line-height: 0;
-}
-
-.hero__wave svg {
-  width: 100%;
-  height: 56px;
-  display: block;
-}
-
-/* ================================================
    SEPARADOR DECORATIVO DE ONDAS
    ================================================ */
 .wave-divider {
@@ -881,7 +866,7 @@ ul {
 @media (min-width: 900px) {
   /* Hero con más espacio vertical en escritorio */
   .hero {
-    padding: 160px 24px 0;
+    padding: 160px 24px 64px;
   }
 
   /* Logo un poco más grande en escritorio */
