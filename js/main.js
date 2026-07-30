@@ -22,22 +22,22 @@ elementosAnimados.forEach(function (el) { observador.observe(el); });
 
 
 /* ================================================
-   2. DROPDOWNS — WhatsApp y Calendario
+   2. DROPDOWNS — Más información y Calendario
    Variables en scope global para que se puedan
    referenciar mutuamente al abrir/cerrar.
    ================================================ */
-var waBoton      = document.querySelector('.dropdown__toggle');
-var waMenu       = document.querySelector('.dropdown__menu');
-var waContenedor = document.querySelector('.dropdown');
-var calToggle    = document.getElementById('calToggle');
-var calMenu      = document.getElementById('calMenu');
+var infoBoton      = document.querySelector('.dropdown__toggle');
+var infoMenu       = document.querySelector('.dropdown__toggle + .dropdown__menu');
+var infoContenedor = infoBoton ? infoBoton.closest('.dropdown') : null;
+var calToggle      = document.getElementById('calToggle');
+var calMenu        = document.getElementById('calMenu');
 
 /* --- Funciones de cierre individuales --- */
-function cerrarWa() {
-  if (!waMenu) return;
-  waMenu.setAttribute('hidden', '');
-  if (waBoton)      waBoton.setAttribute('aria-expanded', 'false');
-  if (waContenedor) waContenedor.classList.remove('dropdown--open');
+function cerrarInfo() {
+  if (!infoMenu) return;
+  infoMenu.setAttribute('hidden', '');
+  if (infoBoton)      infoBoton.setAttribute('aria-expanded', 'false');
+  if (infoContenedor) infoContenedor.classList.remove('dropdown--open');
 }
 
 function cerrarCal() {
@@ -48,21 +48,21 @@ function cerrarCal() {
 
 /* Cierra TODOS los dropdowns de una vez */
 function cerrarTodos() {
-  cerrarWa();
+  cerrarInfo();
   cerrarCal();
 }
 
-/* --- WhatsApp --- */
-if (waBoton && waMenu) {
-  waBoton.addEventListener('click', function (e) {
+/* --- Más información --- */
+if (infoBoton && infoMenu) {
+  infoBoton.addEventListener('click', function (e) {
     e.stopPropagation();
-    if (waMenu.hasAttribute('hidden')) {
-      cerrarCal();                              /* cierra calendario si está abierto */
-      waMenu.removeAttribute('hidden');
-      waBoton.setAttribute('aria-expanded', 'true');
-      waContenedor.classList.add('dropdown--open');
+    if (infoMenu.hasAttribute('hidden')) {
+      cerrarCal();                                /* cierra calendario si está abierto */
+      infoMenu.removeAttribute('hidden');
+      infoBoton.setAttribute('aria-expanded', 'true');
+      infoContenedor.classList.add('dropdown--open');
     } else {
-      cerrarWa();
+      cerrarInfo();
     }
   });
 }
@@ -72,7 +72,7 @@ if (calToggle && calMenu) {
   calToggle.addEventListener('click', function (e) {
     e.stopPropagation();
     if (calMenu.hasAttribute('hidden')) {
-      cerrarWa();                               /* cierra WhatsApp si está abierto */
+      cerrarInfo();                               /* cierra "Más información" si está abierto */
       calMenu.removeAttribute('hidden');
       calToggle.setAttribute('aria-expanded', 'true');
     } else {
@@ -83,11 +83,11 @@ if (calToggle && calMenu) {
 
 /* --- Cerrar al tocar/clicar FUERA (click = desktop, touchstart = móvil) --- */
 function manejarCierreExterno(e) {
-  var dentroWa  = waBoton      && waBoton.contains(e.target)  ||
-                  waMenu       && waMenu.contains(e.target);
-  var dentroCal = calToggle    && calToggle.contains(e.target) ||
-                  calMenu      && calMenu.contains(e.target);
-  if (!dentroWa && !dentroCal) cerrarTodos();
+  var dentroInfo = infoBoton   && infoBoton.contains(e.target) ||
+                   infoMenu    && infoMenu.contains(e.target);
+  var dentroCal  = calToggle   && calToggle.contains(e.target) ||
+                   calMenu     && calMenu.contains(e.target);
+  if (!dentroInfo && !dentroCal) cerrarTodos();
 }
 
 document.addEventListener('click',      manejarCierreExterno);
@@ -97,7 +97,7 @@ document.addEventListener('touchstart', manejarCierreExterno, { passive: true })
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') {
     cerrarTodos();
-    if (waBoton) waBoton.focus();
+    if (infoBoton) infoBoton.focus();
   }
 });
 
@@ -247,7 +247,57 @@ if (btnIcs) {
 
 
 /* ================================================
-   6. ANIMACIÓN DE ENTRADA DEL HERO
+   6. COMPARTIR EVENTO
+   Usa Web Share API si está disponible; si no, abre
+   WhatsApp con el texto prellenado.
+   ================================================ */
+var btnCompartir = document.getElementById('btnCompartir');
+if (btnCompartir) {
+  btnCompartir.addEventListener('click', function () {
+    var datosCompartir = {
+      title: 'Congreso Internacional para Mujeres — La Novia de Cristo',
+      text:  '🔥😄 ¡Te quiero invitar a que participes de este evento! Este es el link:',
+      url:   'https://josuetapiab.github.io/Payacollo/'
+    };
+    if (navigator.share) {
+      navigator.share(datosCompartir).catch(function () {});
+    } else {
+      var texto = encodeURIComponent(datosCompartir.text + ' ' + datosCompartir.url);
+      window.open('https://wa.me/?text=' + texto, '_blank', 'noopener');
+    }
+  });
+}
+
+
+/* ================================================
+   7. FORMULARIO DE INSCRIPCIÓN RÁPIDA
+   Arma el mensaje con los datos y abre WhatsApp
+   con el chat y el texto ya listos para enviar.
+   ================================================ */
+var formInscripcion = document.getElementById('formInscripcion');
+if (formInscripcion) {
+  formInscripcion.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var nombre        = document.getElementById('signupNombre').value.trim();
+    var edad          = document.getElementById('signupEdad').value;
+    var iglesia       = document.getElementById('signupIglesia').value.trim();
+    var participantes = document.getElementById('signupParticipantes').value;
+    var numero         = document.getElementById('signupContacto').value;
+
+    var mensaje = 'Hola, quiero inscribirme al *Congreso Internacional para Mujeres "La Novia de Cristo"*\n\n' +
+      '*Nombre:* ' + nombre + '\n' +
+      '*Edad:* ' + edad + '\n' +
+      '*Iglesia:* ' + iglesia + '\n' +
+      '*Número de participantes:* ' + participantes;
+
+    window.open('https://wa.me/' + numero + '?text=' + encodeURIComponent(mensaje), '_blank', 'noopener');
+  });
+}
+
+
+/* ================================================
+   8. ANIMACIÓN DE ENTRADA DEL HERO
    ================================================ */
 function activarHero() {
   document.body.classList.add('hero-loaded');

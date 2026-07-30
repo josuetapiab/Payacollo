@@ -21,6 +21,43 @@
   <meta property="og:type"         content="website">
   <meta property="og:locale"       content="es_BO">
 
+  <!-- ===== DATOS ESTRUCTURADOS (Schema.org Event, para Google) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Congreso Internacional para Mujeres — La Novia de Cristo",
+    "description": "Congreso Internacional para Mujeres 'La Novia de Cristo' — un tiempo de edificación, comunión y renovación espiritual. Inscripción gratuita, incluye alimentación.",
+    "startDate": "2026-09-05T08:30:00-04:00",
+    "endDate": "2026-09-05T17:30:00-04:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "image": "https://josuetapiab.github.io/Payacollo/images/send.png",
+    "location": {
+      "@type": "Place",
+      "name": "Iglesia Ministerio Misión Boliviana — Payacollo",
+      "address": "Payacollo, Cochabamba, Bolivia",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -17.43015,
+        "longitude": -66.327103
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "Ministerio Misión Boliviana — Payacollo",
+      "url": "https://josuetapiab.github.io/Payacollo/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BOB",
+      "availability": "https://schema.org/InStock",
+      "url": "https://josuetapiab.github.io/Payacollo/"
+    }
+  }
+  </script>
+
   <!-- ===== FUENTES DE GOOGLE ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,10 +83,12 @@
         <span></span>
       </button>
       <ul class="navbar__menu" id="navMenu" role="list">
-        <li><a href="#tema"       class="navbar__link">Inicio</a></li>
-        <li><a href="#programa"   class="navbar__link">Programa</a></li>
-        <li><a href="#requisitos" class="navbar__link">Inscripción</a></li>
-        <li><a href="#ubicacion"  class="navbar__link">Ubicación</a></li>
+        <li><a href="#tema"        class="navbar__link">Inicio</a></li>
+        <li><a href="#expositoras" class="navbar__link">Expositoras</a></li>
+        <li><a href="#programa"    class="navbar__link">Programa</a></li>
+        <li><a href="#requisitos"  class="navbar__link">Inscripción</a></li>
+        <li><a href="#ministerio"  class="navbar__link">Ministerio</a></li>
+        <li><a href="#ubicacion"   class="navbar__link">Ubicación</a></li>
       </ul>
     </div>
   </nav>
@@ -113,6 +152,7 @@
       </div>
 
       <!-- Contador regresivo hasta el evento -->
+      <p class="countdown__caption">Faltan para el evento</p>
       <div class="countdown" id="countdown">
         <div class="countdown__item">
           <span class="countdown__num" id="cd-dias">--</span>
@@ -146,29 +186,36 @@
           Cómo llegar
         </a>
 
-        <!-- Botón desplegable: WhatsApp (se maneja en main.js) -->
+        <!-- Botón: ir al formulario de inscripción -->
+        <a href="#inscripcion" class="btn btn--green">
+          <img src="images/whatsapp.png" alt="" class="btn-icon" aria-hidden="true">
+          Inscríbete ahora
+        </a>
+
+        <!-- Botón desplegable: Más información por WhatsApp (se maneja en main.js) -->
         <div class="dropdown">
           <button
-            class="btn btn--green dropdown__toggle"
+            class="btn btn--white dropdown__toggle"
             aria-expanded="false"
             aria-haspopup="true"
           >
-            <img src="images/whatsapp.png" alt="" class="btn-icon" aria-hidden="true">
-            Inscríbete por WhatsApp
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg>
+            Más información
             <svg class="icon icon--chevron dropdown__arrow" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
           </button>
 
           <!-- Menú oculto por defecto -->
           <ul class="dropdown__menu" role="menu" hidden>
+            <li class="dropdown__caption" role="none">Elige un contacto</li>
             <li role="none">
               <a
-                href="https://wa.me/59160748595"
+                href="https://wa.me/59160748595?text=Saludos%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20del%20evento%20para%20mujeres%20del%2005%20de%20septiembre.%20%C2%A1Muchas%20gracias!"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="dropdown__item"
                 role="menuitem"
               >
-                <span class="dropdown__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg></span>
+                <span class="dropdown__icon dropdown__icon--wa" aria-hidden="true"><img src="images/whatsapp.png" alt=""></span>
                 <span class="dropdown__info">
                   <span class="dropdown__name">Lider Sandra Costano</span>
                 </span>
@@ -176,13 +223,13 @@
             </li>
             <li role="none">
               <a
-                href="https://wa.me/59171754794"
+                href="https://wa.me/59171754794?text=Saludos%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20del%20evento%20para%20mujeres%20del%2005%20de%20septiembre.%20%C2%A1Muchas%20gracias!"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="dropdown__item"
                 role="menuitem"
               >
-                <span class="dropdown__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg></span>
+                <span class="dropdown__icon dropdown__icon--wa" aria-hidden="true"><img src="images/whatsapp.png" alt=""></span>
                 <span class="dropdown__info">
                   <span class="dropdown__name">Pastora Geidy Tapia</span>
                 </span>
@@ -204,6 +251,7 @@
             <svg class="icon icon--chevron cal-arrow" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
           </button>
           <ul class="dropdown__menu dropdown__menu--cal" id="calMenu" role="menu" hidden>
+            <li class="dropdown__caption" role="none">Elige una opción</li>
             <li role="none">
               <a href="#" id="calGoogle" target="_blank" rel="noopener" class="dropdown__item" role="menuitem">
                 <span class="dropdown__icon cal-icon-google" aria-hidden="true">G</span>
@@ -223,6 +271,12 @@
             </li>
           </ul>
         </div>
+
+        <!-- Botón: compartir evento (Web Share API con respaldo a WhatsApp) -->
+        <button type="button" class="btn btn--outline" id="btnCompartir">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185z"/></svg>
+          Compartir evento
+        </button>
 
       </div>
     </div>
@@ -246,6 +300,19 @@
       </p>
     </section>
 
+    <!-- ---- Expositoras ---- -->
+    <section class="section fade-in" id="expositoras">
+      <p class="section__label">Invitadas Especiales</p>
+      <h2 class="section__title">Nuestras Expositoras</h2>
+      <p class="section__text" style="margin: 0 auto 24px;">
+        Tres mujeres de Dios compartirán Su Palabra durante el congreso,
+        trayendo enseñanza, testimonio y bendición para cada asistente.
+      </p>
+      <div class="speakers">
+        <img src="images/speakers.jpeg" alt="Expositoras del Congreso: Pastora Geidy Garcia, Pastora Sabina Felix y Pastora Wilma Achocalla" class="speakers__img" width="995" height="576" loading="lazy">
+      </div>
+    </section>
+
     <!-- ---- Programa / Horario ---- -->
     <section class="section fade-in" id="programa">
       <p class="section__label">Programa</p>
@@ -265,7 +332,7 @@
           <span class="schedule__desc">Almuerzo de comunión (incluido)</span>
         </div>
         <div class="schedule__item schedule__item--alt">
-          <span class="schedule__time">17:30 p.m.</span>
+          <span class="schedule__time">5:30 p.m.</span>
           <span class="schedule__desc">Palabra final y cierre del congreso</span>
         </div>
       </div>
@@ -292,6 +359,40 @@
           <p class="card__title">Edad mínima: 16 años</p>
           <p class="card__text">Se sugiere no asistir con niños para que cada participante pueda recibir la Palabra con plena atención y disfrutar el programa.</p>
         </div>
+      </div>
+
+      <!-- ---- Formulario de inscripción rápida (envía por WhatsApp) ---- -->
+      <div class="signup" id="inscripcion">
+        <h3 class="signup__title">Inscríbete en un clic</h3>
+        <form id="formInscripcion" class="signup__form">
+          <div class="signup__field">
+            <label for="signupNombre">Nombre completo</label>
+            <input type="text" id="signupNombre" name="nombre" placeholder="Tu nombre" minlength="3" maxlength="100" required>
+          </div>
+          <div class="signup__field">
+            <label for="signupEdad">Edad</label>
+            <input type="number" id="signupEdad" name="edad" min="16" max="90" placeholder="Edad mínima 16 años" required>
+          </div>
+          <div class="signup__field">
+            <label for="signupIglesia">Iglesia de la que vienes</label>
+            <input type="text" id="signupIglesia" name="iglesia" placeholder="Nombre de tu iglesia" minlength="3" maxlength="100" required>
+          </div>
+          <div class="signup__field">
+            <label for="signupParticipantes">¿Cuántas personas asistirán?</label>
+            <input type="number" id="signupParticipantes" name="participantes" min="1" max="100" value="1" required>
+          </div>
+          <div class="signup__field">
+            <label for="signupContacto">Confirmar con</label>
+            <select id="signupContacto" name="contacto" required>
+              <option value="59160748595">Líder Sandra Costano</option>
+              <option value="59171754794">Pastora Geidy Tapia</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn--green signup__submit">
+            <img src="images/whatsapp.png" alt="" class="btn-icon" aria-hidden="true">
+            Enviar inscripción por WhatsApp
+          </button>
+        </form>
       </div>
     </section>
 

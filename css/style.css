@@ -436,7 +436,7 @@ ul {
 
 
 /* ================================================
-   DROPDOWN — Menú de WhatsApp
+   DROPDOWN — Menús de "Más información" y calendario
    ================================================ */
 
 /* Contenedor relativo para posicionar el menú */
@@ -445,28 +445,45 @@ ul {
   display: inline-block;
 }
 
-/* Flecha que gira cuando el menú está abierto */
-.dropdown__arrow {
-  display: inline-block;
-  transition: transform var(--transition);
-}
-
-/* La flecha SVG rota via .dropdown--open .icon--chevron (ver sección de íconos) */
-
 /* Menú desplegable — se abre hacia ARRIBA para no tapar el contenido */
 .dropdown__menu {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 16px);
   top: auto;
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-white);
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  padding: 8px;
-  min-width: 240px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 14px;
+  width: max-content;
+  min-width: 300px;
+  max-width: calc(100vw - 48px);
   z-index: 500;
-  animation: dropdownEntrada 0.15s ease;
+  animation: dropdownEntrada 0.18s ease;
+}
+
+/* Flechita que apunta hacia el botón que abrió el menú */
+.dropdown__menu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--color-white);
+}
+
+/* Etiqueta pequeña sobre las opciones (ej. "Elige un contacto") */
+.dropdown__caption {
+  padding: 4px 6px 12px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-label);
 }
 
 /* Cada opción del menú */
@@ -474,15 +491,20 @@ ul {
   display: flex;
   flex-direction: row;  /* ícono a la izquierda, texto a la derecha */
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
   color: var(--color-text);
-  transition: background var(--transition);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.dropdown__item:not(:last-child) {
+  margin-bottom: 4px;
 }
 
 .dropdown__item:hover {
   background: var(--color-primary-pale);
+  transform: translateX(3px);
 }
 
 /* Ícono de teléfono en círculo verde */
@@ -490,13 +512,27 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-green);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
   /* el SVG interior hereda color blanco */
   color: white;
+}
+
+/* Variante con el logo de WhatsApp (ya trae su propio fondo verde) */
+.dropdown__icon--wa {
+  background: none;
+  box-shadow: none;
+}
+
+.dropdown__icon--wa img {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: block;
 }
 
 /* Bloque de texto (nombre + número) */
@@ -508,8 +544,9 @@ ul {
 /* Nombre de la persona */
 .dropdown__name {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
 /* Número de teléfono */
@@ -535,21 +572,6 @@ ul {
 /* ================================================
    OPCIONES DE IMAGEN DE LA IGLESIA
    ================================================ */
-
-/* OPCIÓN 2: sección foto independiente */
-.section-photo {
-  width: 100%;
-  max-height: 280px;
-  overflow: hidden;
-}
-
-.section-photo img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
 
 /* Contenedor de imagen de la iglesia (dentro de la sección, bajo el título) */
 .church {
@@ -602,6 +624,22 @@ ul {
 
 .church .section__pastor {
   color: rgba(255,255,255,0.85);
+}
+
+
+/* Contenedor de la imagen de expositoras (bajo el título) */
+.speakers {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: var(--color-primary-pale);
+}
+
+.speakers__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 
@@ -786,6 +824,69 @@ ul {
   font-size: 14px;
   color: var(--color-text-light);
   line-height: 1.5;
+}
+
+
+/* ================================================
+   FORMULARIO DE INSCRIPCIÓN RÁPIDA
+   ================================================ */
+.signup {
+  margin-top: 32px;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.signup__title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signup__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.signup__field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.signup__field input,
+.signup__field select {
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid oklch(0.9 0.01 300);
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color var(--transition);
+}
+
+.signup__field input:focus,
+.signup__field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.signup__submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
 }
 
 
@@ -1107,6 +1208,16 @@ ul {
 /* ================================================
    CONTADOR REGRESIVO
    ================================================ */
+.countdown__caption {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 4px;
+  margin-bottom: -6px;
+}
+
 .countdown {
   display: flex;
   gap: 8px;
@@ -1170,13 +1281,14 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #4285f4;
   color: white;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 17px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
 }
 
@@ -1185,11 +1297,12 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: oklch(0.3 0.02 300);
-  font-size: 18px;
+  font-size: 19px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
 }
 
@@ -1213,6 +1326,7 @@ ul {
 .hero__title,
 .hero__subtitle,
 .hero__chips,
+.countdown__caption,
 .countdown,
 .hero__actions {
   opacity: 0;
@@ -1239,6 +1353,7 @@ ul {
 .hero-loaded .hero__title   { animation: heroSlideUp   0.7s ease forwards 0.6s; }
 .hero-loaded .hero__subtitle { animation: heroFade     0.5s ease forwards 0.95s; }
 .hero-loaded .hero__chips   { animation: heroSlideUp   0.6s ease forwards 1.15s; }
+.hero-loaded .countdown__caption { animation: heroFade 0.5s ease forwards 1.25s; }
 .hero-loaded .countdown     { animation: heroFade      0.6s ease forwards 1.35s; }
 .hero-loaded .hero__actions { animation: heroSlideUp   0.6s ease forwards 1.5s; }
 
@@ -1249,6 +1364,7 @@ ul {
   .hero__title,
   .hero__subtitle,
   .hero__chips,
+  .countdown__caption,
   .countdown,
   .hero__actions {
     opacity: 1 !important;
